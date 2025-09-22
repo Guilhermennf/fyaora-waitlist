@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fyaora Labs - Service Providers Waitlist
 
-## Getting Started
+A modern dashboard application for managing service providers waitlist, developed as part of the Frontend Developer technical test.
 
-First, run the development server:
+## How to Run Locally
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn
+
+### Installation and Execution
+
+1. **Clone and navigate to the project:**
+
+```bash
+cd fyaora-waitlist
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Run the development server:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Open the browser:**
+   Access [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Implemented Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Mandatory Requirements Met
 
-## Learn More
+Service Providers Table:
 
-To learn more about Next.js, take a look at the following resources:
+- 8 columns: Email, Phone, Postcode, Vendor Type, Service Offering, Signup Date, Status, Actions
+- Functional pagination (10 items per page, 5+ pages)
+- Sorting by all columns
+- Multiple selection with checkboxes + "Select All"
+- Actions with edit icon (triggers modal/toast)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Side Filters:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Postcode (UK ZIP text input)
+- Registration Status (Onboarded/Rejected)
+- Date Registered (Start + End date)
+- Vendor Type (Independent/Company)
+- Service Offering (Housekeeping/Window Cleaning/Car Valet)
+- Functional "Filter" and "Clear Filters" buttons
 
-## Deploy on Vercel
+Real-time Search:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Search bar in the top right
+- Live filter as you type
+- Multi-field search
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Complete Responsiveness:
+
+- Sidebar collapses on smaller devices
+- Table with horizontal scroll on small screens
+- Adaptive layout for mobile/tablet/desktop
+
+### Implemented Bonus Features
+
+UX/UI Improvements:
+
+- Toast notifications for action feedback
+- Hover states and smooth transitions on all interactive elements
+- Visual states for selections and sorting
+- Professional and consistent design system
+
+Modern Design:
+
+- Layout based on professional administrative dashboard
+- Consistent color palette
+- Hierarchical typography
+- Spacing and rounded borders
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Components:** Headless UI
+- **Utilities:** date-fns, clsx, tailwind-merge
+
+## Project Structure
+
+```
+src/
+ components/
+    ServiceProvidersPage.tsx    # Main component
+    DataTable.tsx               # Table with pagination/sorting
+    Sidebar.tsx                 # Side filters
+    SearchBar.tsx               # Real-time search
+    Toast.tsx                   # Notifications
+ types/index.ts                  # TypeScript types
+ data/mockData.ts                # 48 demo records
+ lib/utils.ts                    # Utilities
+```
+
+## Implementation Highlights
+
+Technical Quality:
+
+- 100% typed code with TypeScript
+- Modular and reusable components
+- Performance optimized with memoization
+- Well-managed complex states
+
+Professional UX/UI:
+
+- Consistent design system
+- Smooth transitions and animations
+- Immediate visual feedback
+- Accessibility considered
+
+Responsiveness:
+
+- Mobile-first approach
+- Well-defined breakpoints
+- Flexible and adaptive layout
+- Touch-friendly on mobile devices
+
+## Demo Data
+
+The application includes 48 mocked service provider records to demonstrate all pagination, filtering, and search functionalities.
+
+---
+
+**Developed by:** Guilherme Nunes
