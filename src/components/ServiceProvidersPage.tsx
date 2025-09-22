@@ -1,28 +1,32 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import { mockServiceProviders } from '@/data/mockData';
-import { ServiceProvider, FilterState, SortConfig, PaginationConfig } from '@/types';
-import { format } from 'date-fns';
-import Sidebar from './Sidebar';
-import DataTable from './DataTable';
-import SearchBar from './SearchBar';
-import Toast from './Toast';
+import { useState, useMemo } from "react";
+import { mockServiceProviders } from "@/data/mockData";
+import {
+  ServiceProvider,
+  FilterState,
+  SortConfig,
+  PaginationConfig,
+} from "@/types";
+import Sidebar from "./Sidebar";
+import DataTable from "./DataTable";
+import SearchBar from "./SearchBar";
+import Toast from "./Toast";
 
 export default function ServiceProvidersPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [filters, setFilters] = useState<FilterState>({
-    postcode: '',
-    registrationStatus: '',
-    dateStart: '',
-    dateEnd: '',
-    vendorType: '',
-    serviceOffering: '',
+    postcode: "",
+    registrationStatus: "",
+    dateStart: "",
+    dateEnd: "",
+    vendorType: "",
+    serviceOffering: "",
   });
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: null,
-    direction: 'asc',
+    direction: "asc",
   });
   const [pagination, setPagination] = useState<PaginationConfig>({
     currentPage: 1,
@@ -30,7 +34,10 @@ export default function ServiceProvidersPage() {
     totalItems: 0,
     totalPages: 0,
   });
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const filteredData = useMemo(() => {
@@ -57,19 +64,27 @@ export default function ServiceProvidersPage() {
     }
 
     if (filters.registrationStatus) {
-      data = data.filter((provider) => provider.status === filters.registrationStatus);
+      data = data.filter(
+        (provider) => provider.status === filters.registrationStatus
+      );
     }
 
     if (filters.vendorType) {
-      data = data.filter((provider) => provider.vendorType === filters.vendorType);
+      data = data.filter(
+        (provider) => provider.vendorType === filters.vendorType
+      );
     }
 
     if (filters.serviceOffering) {
-      data = data.filter((provider) => provider.serviceOffering === filters.serviceOffering);
+      data = data.filter(
+        (provider) => provider.serviceOffering === filters.serviceOffering
+      );
     }
 
     if (filters.dateStart) {
-      data = data.filter((provider) => provider.signupDate >= filters.dateStart);
+      data = data.filter(
+        (provider) => provider.signupDate >= filters.dateStart
+      );
     }
 
     if (filters.dateEnd) {
@@ -83,10 +98,10 @@ export default function ServiceProvidersPage() {
         const bValue = b[sortConfig.key!];
 
         if (aValue < bValue) {
-          return sortConfig.direction === 'asc' ? -1 : 1;
+          return sortConfig.direction === "asc" ? -1 : 1;
         }
         if (aValue > bValue) {
-          return sortConfig.direction === 'asc' ? 1 : -1;
+          return sortConfig.direction === "asc" ? 1 : -1;
         }
         return 0;
       });
@@ -119,28 +134,28 @@ export default function ServiceProvidersPage() {
   const handleFilter = (newFilters: FilterState) => {
     setFilters(newFilters);
     setPagination((prev) => ({ ...prev, currentPage: 1 }));
-    setToast({ message: 'Filters applied successfully!', type: 'success' });
+    setToast({ message: "Filters applied successfully!", type: "success" });
     setSidebarOpen(false);
   };
 
   const handleClearFilters = () => {
     setFilters({
-      postcode: '',
-      registrationStatus: '',
-      dateStart: '',
-      dateEnd: '',
-      vendorType: '',
-      serviceOffering: '',
+      postcode: "",
+      registrationStatus: "",
+      dateStart: "",
+      dateEnd: "",
+      vendorType: "",
+      serviceOffering: "",
     });
-    setSearchTerm('');
+    setSearchTerm("");
     setPagination((prev) => ({ ...prev, currentPage: 1 }));
-    setToast({ message: 'Filters cleared successfully!', type: 'success' });
+    setToast({ message: "Filters cleared successfully!", type: "success" });
   };
 
   const handleSort = (key: keyof ServiceProvider) => {
     setSortConfig((prev) => ({
       key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
     }));
   };
 
@@ -165,7 +180,10 @@ export default function ServiceProvidersPage() {
   };
 
   const handleEdit = (provider: ServiceProvider) => {
-    setToast({ message: `Edit action triggered for ${provider.email}`, type: 'success' });
+    setToast({
+      message: `Edit action triggered for ${provider.email}`,
+      type: "success",
+    });
   };
 
   const handleCloseToast = () => {
@@ -174,25 +192,37 @@ export default function ServiceProvidersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
+      {/* Top Header Bar */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
-            <h1 className="text-2xl font-bold text-gray-900">Service Providers</h1>
+            <h1 className="hidden sm:block text-xl sm:text-2xl font-bold text-gray-900">
+              Service Providers
+            </h1>
           </div>
           <SearchBar onSearch={handleSearch} value={searchTerm} />
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex h-full">
         {/* Sidebar */}
         <Sidebar
           filters={filters}
@@ -202,20 +232,22 @@ export default function ServiceProvidersPage() {
           onClose={() => setSidebarOpen(false)}
         />
 
-        {/* Main Content */}
-        <div className="flex-1 p-6">
-          <div className="bg-white rounded-lg shadow">
-            <DataTable
-              data={paginatedData}
-              selectedIds={selectedIds}
-              sortConfig={sortConfig}
-              pagination={pagination}
-              onSort={handleSort}
-              onPageChange={handlePageChange}
-              onSelectAll={handleSelectAll}
-              onSelectRow={handleSelectRow}
-              onEdit={handleEdit}
-            />
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
+            <div className="max-w-none">
+              <DataTable
+                data={paginatedData}
+                selectedIds={selectedIds}
+                sortConfig={sortConfig}
+                pagination={pagination}
+                onSort={handleSort}
+                onPageChange={handlePageChange}
+                onSelectAll={handleSelectAll}
+                onSelectRow={handleSelectRow}
+                onEdit={handleEdit}
+              />
+            </div>
           </div>
         </div>
       </div>
